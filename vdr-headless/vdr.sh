@@ -9,7 +9,7 @@ export LANG="de_DE.UTF-8"
 
 # Set folder permissions
 # chown -r /recordings only if owned by root. We asume that means it's a docker volume
-[ "$(stat -c %u:%g /recordings)" = "0:0" ] && chown vdr:vdr /recordings
+[ "$(stat -c %u:%g /srv/vdr/video)" = "0:0" ] && chown vdr:vdr /srv/vdr/video
 [ "$(stat -c %u:%g /vdr/config)" = "0:0" ] && chown vdr:vdr /vdr/config
 [ "$(stat -c %u:%g /vdr/cache)" = "0:0" ] && chown vdr:vdr /vdr/cache
 
@@ -18,5 +18,5 @@ cp -a -v --no-clobber /var/lib/vdr/* /vdr/config
 cp -a /var/lib/vdr/plugins/epg2vdr/epg.dat /vdr/config/plugins/epg2vdr
 
 # Run vdr
-exec s6-setuidgid vdr vdr
+exec su - vdr vdr
 
