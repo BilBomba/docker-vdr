@@ -23,7 +23,7 @@ RUN apt-get update -qq && \
 	rsyslog \
 	vdr-plugin-epgsearch \
 	vdr-plugin-femon \
-	vdr-plugin-satip \
+#	vdr-plugin-satip \
 	vdr-plugin-live \
 	vdr-plugin-restfulapi \
 	vdr-plugin-vnsiserver \
@@ -41,13 +41,16 @@ RUN apt install -y vdr-plugin-svdrpservice \
 
 
 RUN apt-get install -qy build-essential ccache
-RUN apt-get build-dep -qy vdr
-RUN  apt source vdr
+RUN apt-get build-dep -qy vdr vdr-plugin-satip
+RUN apt source vdr
 RUN git clone --depth 1 --branch v2.2.6 https://github.com/manio/vdr-plugin-dvbapi.git
+RUN git clone --depth 1 --branch master https://github.com/BilBomba/vdr-plugin-satip.git
 # wechslt ins vdr verzeichnis
 RUN cd $(ls -d vdr*/|head -n 1)/PLUGINS/src && \
 	rm -fr * && \ 
 	ln -s ../../../vdr-plugin-dvbapi dvbapi
+RUN cd $(ls -d vdr*/|head -n 1)/PLUGINS/src && \
+	ln -s ../../../vdr-plugin-satip satip
 RUN cd $(ls -d vdr*/|head -n 1) && \
 	make plugins && make install-plugins
 
