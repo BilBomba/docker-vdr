@@ -67,10 +67,11 @@ COPY rsyslog.sh /etc/services.d/rsyslog/run
  COPY var/lib/vdr/plugins/streamdev-server/* /var/lib/vdr/plugins/streamdev-server/
  COPY etc/vdr/conf.d/* /etc/vdr/conf.d/
  COPY etc/default/vdr /etc/default/vdr
-# COPY etc/vdr/setup.conf /etc/vdr
- #RUN cat ./setup.conf >> /etc/vdr/setup.conf
  COPY start.sh /root/start.sh
+RUN rm /etc/vdr/plugins/streamdevhosts.conf
+RUN ln -s /var/lib/vdr/plugins/streamdev-server/streamdevhosts.conf /etc/vdr/plugins/streamdevhosts.conf
 RUN chmod u+x /root/start.sh
+RUN rm /etc/vdr/conf.d/50-satip.conf
  #COPY etc/rsyslog.conf /etc/
 
  EXPOSE 2004 3000 6419 8002 8008 4010-4020/udp 34890 8875 554 1900/udp
@@ -78,7 +79,10 @@ RUN chmod u+x /root/start.sh
 
 #_RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /etc/vdr
+
+
+
+
 
 ENTRYPOINT ["/root/start.sh"]
 

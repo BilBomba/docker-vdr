@@ -4,19 +4,24 @@ services:
   vdrheadless:
     image: vdrheadless
 #    network_mode: "host"
+    container_name: vdr_server
     build:
       context: .
       dockerfile: ./Dockerfile
 #      network: host
       #satip
     ports:
+      - 2004:2004
+      - 3000:3000
+      - 6419:6419
+      - 8002:8002
       - 8008:8008
       - 8875:8875
       - 554:554/tcp
       - 554:554/udp
       - 1900:1900/udp
+      - 4010-4020:4010-4020/udp
+      - 34890:34890
       #satip ende
-
-
 
 #docker run --rm -it -p 2004:2004/tcp -p 3000:3000/tcp -p 34890:34890/tcp -p 4010:4010/udp -p 4011:4011/udp -p 4012:4012/udp -p 4013:4013/udp -p 4014:4014/udp -p 4015:4015/udp -p 4016:4016/udp -p 4017:4017/udp -p 4018:4018/udp -p 4019:4019/udp -p 4020:4020/udp -p 6419:6419/tcp -p 8002:8002/tcp -p 8008:8008/tcp vdrheadless:latest 
