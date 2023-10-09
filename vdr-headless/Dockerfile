@@ -78,7 +78,7 @@ RUN chmod u+x /root/start.sh
 #RUN rm /etc/vdr/conf.d/50-satip.conf
  #COPY etc/rsyslog.conf /etc/
 
- EXPOSE 2004 3000 6419 8002 8008 4010-4020/udp 34890 8875 554 1900/udp
+ EXPOSE 2004 3000 6419 8002 8008 4010-4020/tcp 4010-4020/udp 34890 8875 554 1900/udp
  VOLUME /srv/vdr/video  /etc/vdr /vdr/config /vdr/cache
 
 #_RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
